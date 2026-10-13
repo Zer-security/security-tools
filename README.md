@@ -92,7 +92,7 @@ Some tools use Python's standard library and do not require additional packages.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/fatonkamal035-Cybersecurity/security-tools.git
+git clone https://github.com/Zer-security/security-tools.git
 cd security-tools
 ```
 
