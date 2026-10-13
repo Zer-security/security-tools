@@ -24,7 +24,7 @@ TLSA records are used with DANE (DNS-based Authentication of Named Entities) to 
 Clone the repository if you have not already:
 
 ```bash
-git clone https://github.com/fatonkamal035-Cybersecurity/security-tools.git
+git clone https://github.com/Zer-security/security-tools.git
 cd security-tools
 ```
 
