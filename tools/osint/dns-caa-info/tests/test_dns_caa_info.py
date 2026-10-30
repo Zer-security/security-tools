@@ -6,6 +6,7 @@ sys.path.insert(
     str(Path(__file__).resolve().parents[1] / "src"),
 )
 
+import dns.exception
 import dns.resolver
 import pytest
 
@@ -33,7 +34,7 @@ def test_resolve_caa_records(monkeypatch):
         fake_resolve,
     )
 
-    assert resolve_caa_records("Example.COM") == [
+    assert resolve_caa_records("Example.COM.") == [
         {
             "flags": 0,
             "tag": "issue",
@@ -47,7 +48,66 @@ def test_resolve_caa_records(monkeypatch):
     ]
 
 
-def test_empty_result_on_dns_error(monkeypatch):
+def test_resolve_caa_record_with_nonzero_flag(monkeypatch):
+    def fake_resolve(*args, **kwargs):
+        return [
+            FakeAnswer(128, "issue", "ca.example"),
+        ]
+
+    monkeypatch.setattr(
+        dns.resolver.Resolver,
+        "resolve",
+        fake_resolve,
+    )
+
+    assert resolve_caa_records("example.com") == [
+        {
+            "flags": 128,
+            "tag": "issue",
+            "value": "ca.example",
+        },
+    ]
+
+
+def test_resolve_caa_iodef_record(monkeypatch):
+    def fake_resolve(*args, **kwargs):
+        return [
+            FakeAnswer(
+                0,
+                "iodef",
+                "mailto:security@example.com",
+            ),
+        ]
+
+    monkeypatch.setattr(
+        dns.resolver.Resolver,
+        "resolve",
+        fake_resolve,
+    )
+
+    assert resolve_caa_records("example.com") == [
+        {
+            "flags": 0,
+            "tag": "iodef",
+            "value": "mailto:security@example.com",
+        },
+    ]
+
+
+def test_noanswer_returns_empty_list(monkeypatch):
+    def fake_resolve(*args, **kwargs):
+        raise dns.resolver.NoAnswer
+
+    monkeypatch.setattr(
+        dns.resolver.Resolver,
+        "resolve",
+        fake_resolve,
+    )
+
+    assert resolve_caa_records("example.com") == []
+
+
+def test_nxdomain_is_propagated(monkeypatch):
     def fake_resolve(*args, **kwargs):
         raise dns.resolver.NXDOMAIN
 
@@ -57,7 +117,22 @@ def test_empty_result_on_dns_error(monkeypatch):
         fake_resolve,
     )
 
-    assert resolve_caa_records("missing.example.com") == []
+    with pytest.raises(dns.resolver.NXDOMAIN):
+        resolve_caa_records("missing.example.com")
+
+
+def test_dns_timeout_is_propagated(monkeypatch):
+    def fake_resolve(*args, **kwargs):
+        raise dns.exception.Timeout
+
+    monkeypatch.setattr(
+        dns.resolver.Resolver,
+        "resolve",
+        fake_resolve,
+    )
+
+    with pytest.raises(dns.exception.Timeout):
+        resolve_caa_records("example.com")
 
 
 @pytest.mark.parametrize(
@@ -81,5 +156,15 @@ def test_reject_hostname_longer_than_253_characters():
     with pytest.raises(
         ValueError,
         match="hostname is too long",
+    ):
+        resolve_caa_records(hostname)
+
+
+def test_reject_label_longer_than_63_characters():
+    hostname = f"{'a' * 64}.example"
+
+    with pytest.raises(
+        ValueError,
+        match="hostname label is too long",
     ):
         resolve_caa_records(hostname)

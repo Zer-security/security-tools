@@ -50,7 +50,7 @@ def resolve_caa_records(
             hostname,
             "CAA",
         )
-    except dns.exception.DNSException:
+    except dns.resolver.NoAnswer:
         return []
 
     records = {
