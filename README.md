@@ -39,31 +39,32 @@ The project focuses on practical implementations, input validation, predictable 
 
 ### OSINT and DNS
 
-| Tool              | Description                                              |
-| ----------------- | -------------------------------------------------------- |
-| `whois-info`      | Retrieves domain registration information through WHOIS. |
-| `dns-info`        | Resolves hostnames to address information.               |
-| `dns-records`     | Looks up DNS address records.                            |
-| `subdomain-info`  | Resolves an explicitly supplied hostname.                |
-| `http-status`     | Checks the HTTP status of a URL.                         |
-| `dns-txt-info`    | Looks up DNS TXT records.                                |
-| `dns-mx-info`     | Looks up DNS MX records.                                 |
-| `dns-ns-info`     | Looks up DNS NS records.                                 |
-| `dns-soa-info`    | Looks up DNS SOA records.                                |
-| `dns-caa-info`    | Looks up DNS CAA records.                                |
-| `dns-ds-info`     | Looks up DNSSEC DS records.                              |
-| `dns-dnskey-info` | Looks up DNSSEC DNSKEY records.                          |
-| `dns-srv-info`    | Looks up DNS SRV records.                                |
-| `dns-naptr-info`  | Looks up DNS NAPTR records.                              |
-| `dns-cname-info`  | Looks up DNS CNAME records.                              |
-| `dns-ptr-info`    | Looks up DNS PTR records.                                |
-| `dns-sshfp-info`  | Looks up DNS SSHFP records.                              |
-| `dns-hinfo-info`  | Looks up DNS HINFO records.                              |
-| `dns-rp-info`     | Looks up DNS RP records.                                 |
-| `dns-svcb-info`   | Looks up DNS SVCB records.                               |
-| `dns-https-info`  | Looks up DNS HTTPS records.                              |
-| `dns-uri-info`    | Looks up DNS URI records.                                |
-| `dns-tlsa-info`   | Looks up DNS TLSA records used with DANE.                |
+| Tool                  | Description                                              |
+| --------------------- | -------------------------------------------------------- |
+| `whois-info`          | Retrieves domain registration information through WHOIS. |
+| `dns-info`            | Resolves hostnames to address information.               |
+| `dns-records`         | Looks up DNS address records.                            |
+| `subdomain-info`      | Resolves an explicitly supplied hostname.                |
+| `http-status`         | Checks the HTTP status of a URL.                         |
+| `dns-txt-info`        | Looks up DNS TXT records.                                |
+| `dns-mx-info`         | Looks up DNS MX records.                                 |
+| `dns-ns-info`         | Looks up DNS NS records.                                 |
+| `dns-soa-info`        | Looks up DNS SOA records.                                |
+| `dns-caa-info`        | Looks up DNS CAA records.                                |
+| `dns-ds-info`         | Looks up DNSSEC DS records.                              |
+| `dns-dnskey-info`     | Looks up DNSSEC DNSKEY records.                          |
+| `dns-srv-info`        | Looks up DNS SRV records.                                |
+| `dns-naptr-info`      | Looks up DNS NAPTR records.                              |
+| `dns-cname-info`      | Looks up DNS CNAME records.                              |
+| `dns-ptr-info`        | Looks up DNS PTR records.                                |
+| `dns-sshfp-info`      | Looks up DNS SSHFP records.                              |
+| `dns-hinfo-info`      | Looks up DNS HINFO records.                              |
+| `dns-rp-info`         | Looks up DNS RP records.                                 |
+| `dns-svcb-info`       | Looks up DNS SVCB records.                               |
+| `dns-https-info`      | Looks up DNS HTTPS records.                              |
+| `dns-uri-info`        | Looks up DNS URI records.                                |
+| `dns-tlsa-info`       | Looks up DNS TLSA records used with DANE.                |
+| `dns-nsec3param-info` | Looks up DNSSEC NSEC3PARAM records.                      |
 
 ### Cryptography
 
@@ -73,9 +74,14 @@ The project focuses on practical implementations, input validation, predictable 
 
 ### Defensive Security
 
+| Tool        | Description                                        |
+| ----------- | -------------------------------------------------- |
+| `file-hash` | Calculates file hashes for integrity verification. |
+
+### Vulnerability Assessment
+
 | Tool                 | Description                                                |
 | -------------------- | ---------------------------------------------------------- |
-| `file-hash`          | Calculates file hashes for integrity verification.         |
 | `dependency-auditor` | Parses pinned dependencies from a `requirements.txt` file. |
 
 ## Requirements
@@ -235,4 +241,5 @@ When reporting a problem, include the affected tool, the steps needed to reprodu
 
 ## License
 
-No license has been specified for this repository yet. Unless a license is added, do not assume that the code is available for unrestricted reuse, modification, or redistribution.
+This project is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for details.
